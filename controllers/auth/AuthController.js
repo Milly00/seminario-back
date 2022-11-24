@@ -18,7 +18,7 @@ router.post('/autentificar', async (req, res) => {
 		//revisar que sea un usuario registrado
 		let usuario = await User.findOne({ correo });
 		if (!usuario) {
-			return res.status(200).json({ msg: 'El usuario no existe' });
+			return res.status(200).json({ msg: 'El usuario no existe' ,code: 400 , data: "No hay datos para mostrar"});
 		}
 
 		//revisar la password
@@ -34,7 +34,7 @@ router.post('/autentificar', async (req, res) => {
 		//Si todo es correcto, crear y firmar el token
 
 		const payload = {
-			usuario: { id: usuario.id },
+			usuario: { id: usuario._id },
 		};
 
 		jwt.sign(
@@ -47,7 +47,7 @@ router.post('/autentificar', async (req, res) => {
 				if (error) throw error;
 
 				//Mensaje de confirmación
-				res.json({ token });
+				res.json({ token, code: 200 });
 			}
 		);
 	} catch (error) {

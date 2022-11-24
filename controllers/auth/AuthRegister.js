@@ -8,8 +8,9 @@ const {validationResult} = require('express-validator');
 
 router.post("/crear",(req,res)=>{
     User.find({ correo: req.body.correo }, function (err, result) {
+		let usuario;
 		if (result) {
-			const usuario = result[0];
+			usuario = result[0];
 			if (usuario) {
 				//console.log(usuario.email);
 				return res.status(200).send({ msg: 'El Usuario ya existe' });
@@ -27,6 +28,7 @@ router.post("/crear",(req,res)=>{
 			res.status(200).send({ result: result , code: 200 , msg: "Usuario creado exitosamente !!!"});
 			myUsuario.contrasena = bcryptjs.hash(password, 10);
 			//Firmar el JWT
+			/** 
 			const payload = {
 				usuario: { id: usuario.id },
 			};
@@ -42,7 +44,7 @@ router.post("/crear",(req,res)=>{
 					//Mensaje de confirmación
 					res.json({ token });
 				}
-			);
+			);*/
 		});
 	});
 });
