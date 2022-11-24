@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/seminario');
 
+require('dotenv').config({ path: 'variables.env' });
 
 
 const miconexion = mongoose.connection;

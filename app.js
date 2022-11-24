@@ -2,7 +2,6 @@ var express = require('express');
 app = express();
 const cors = require('cors');
 
-app.use(cors());
 
 const bodyParser = require('body-parser'); //Parsea las peticiones
 //en formato JSON
@@ -24,7 +23,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const rutas = require('./routes/routes.js');
+const rutas = require('./routes/routes');
+app.use('/Seminario', rutas);
+app.use(cors());
 
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
